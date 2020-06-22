@@ -4,7 +4,7 @@
     <ul>
       <li v-for="todo in todos" :key="todo.id">
         <input type="checkbox" v-bind:checked="todo.done" @change="toggle(todo)" />
-        <span v-bind:class="{done: todo.done}">{{todo.name}} {{todo.created}}</span>
+        <span v-bind:class="{done: todo.done}">{{todo.name}} {{todo.created.toDate() | dateFilter}}</span>
         <button v-on:click="remove(todo.id)">remove</button>
       </li>
     </ul>
@@ -18,6 +18,7 @@
 </template>
 
 <script>
+import moment from "moment";
 export default {
   data: function() {
     return {
@@ -43,6 +44,11 @@ export default {
   computed: {
     todos() {
       return this.$store.state.todos.todos;
+    }
+  },
+  filters: {
+    dateFilter: function(date) {
+      return moment(date).format("YYYY/MM/DD HH:mm:ss");
     }
   }
 };
