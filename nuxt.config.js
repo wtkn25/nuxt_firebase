@@ -1,3 +1,4 @@
+import webpack from 'webpack'
 
 export default {
   /*
@@ -47,5 +48,10 @@ export default {
   ** See https://nuxtjs.org/api/configuration-build/
   */
   build: {
+    plugins: [
+      new webpack.ProvidePlugin({
+        '_': 'lodash'
+      })
+    ]
   }
 }
